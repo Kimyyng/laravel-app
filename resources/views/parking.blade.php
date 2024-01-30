@@ -8,7 +8,7 @@
       <form action="booking" method="post">
         @csrf 
         <div class="d-grid gap-2 my-2">
-          <img class="mx-auto" src="img/area.jpg" alt="tempat parkir">
+          <img class="mx-auto img-fluid" src="img/area.jpg" alt="tempat parkir">
           <h5 class="my-3">Pilih tempat parkir</h5>
           <table class="text-center">
             @foreach ($slot as $kode)
