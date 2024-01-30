@@ -1,13 +1,13 @@
-@extends('template')
+@extends('_default')
 @section('content')
 
 <div class="mt-3">
   <p class="mb-0">Kode Parkir</p>
-  <h3 class="mt-0">{{$kode}}</h3>
+  <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
 </div>
       <form action="pembayaran" method="POST">
         @csrf 
-        <input type="hidden" name="kode" value="{{$kode}}">
+        <input type="hidden" name="kode" value="{{$slot->id}}">
 
         <div class="d-grid gap-2">
           <div>
@@ -29,7 +29,7 @@
                   autocomplete="off"
                 />
                 <label class="btn btn-light btn-outline-dark" for="{{$item->id}}">
-                  <p class="mb-0 fw-bold text-right">{{$item->durasi}}</p>
+                  <p class="mb-0 fw-bold text-right">{{$item->durasi}} Jam</p>
                   <p>Rp. {{number_format($item->biaya)}}<p>
                 </label>
               </div>

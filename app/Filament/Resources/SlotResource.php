@@ -17,7 +17,9 @@ class SlotResource extends Resource
 {
     protected static ?string $model = Slot::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+
+    protected static ?string $pluralLabel = 'Parking area';
 
     public static function form(Form $form): Form
     {
@@ -25,8 +27,8 @@ class SlotResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('kode')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('jumlah')
+                    ->maxLength(3),
+                Forms\Components\TextInput::make('baris')
                     ->required()
                     ->numeric(),
             ]);
@@ -36,11 +38,11 @@ class SlotResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kode')
+                Tables\Columns\TextColumn::make('kode_slot')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('jumlah')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\IconColumn::make('used')
+                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('active'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -51,7 +53,8 @@ class SlotResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make("used")->toggle(),
+                Tables\Filters\SelectFilter::make("kode"),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

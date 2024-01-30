@@ -11,29 +11,29 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('slot_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('waktu_id')
-                    ->numeric(),
+                Forms\Components\Select::make('slot_id')
+                    ->relationship("slot", "kode_slot")
+                    ->searchable(),
+                Forms\Components\Select::make('waktu_id')
+                    ->relationship("waktu")
+                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->durasi} Jam"),
                 Forms\Components\TextInput::make('ds')
+                    ->label("Nomor kendaraan / DS")
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Toggle::make('lunas')
-                    ->required(),
-                Forms\Components\Toggle::make('selesai')
-                    ->required(),
             ]);
     }
 
@@ -41,18 +41,17 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('slot_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('waktu_id')
+                Tables\Columns\TextColumn::make('slot.kode_slot')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('ds')
+                    ->label("DS")
                     ->searchable(),
+                Tables\Columns\TextColumn::make('waktu.durasi')
+                    ->suffix(" Jam"),
                 Tables\Columns\IconColumn::make('lunas')
                     ->boolean(),
-                Tables\Columns\IconColumn::make('selesai')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('selesai'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

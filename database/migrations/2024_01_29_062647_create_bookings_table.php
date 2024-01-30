@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string("ds");
             $table->enum("jenis",["motor","mobil","truk"]);
-            $table->string("kode");
+            $table->foreignIdFor(slot::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(waktu::class)->nullable()->constrained()->nullOnDelete();
-            $table->boolean("lunas");
-            $table->boolean("selesai");
+            $table->boolean("lunas")->default(false);
+            $table->boolean("selesai")->default(false);
             $table->timestamps();
         });
     }

@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\booking;
 use App\Models\slot;
 use App\Models\waktu;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,26 +23,39 @@ Route::get('/', function () {
 });
 
 Route::get('parking', function () {
-    return view('parking',[
-        "slot" => slot::all(),
-    ]);
+    $data = slot::groupBy("kode")->select("kode")->get();
+    foreach ($data as &$item) {
+        $slot[$item->kode] = slot::where("kode", $item->kode)->get();
+    }
 
+    return view('parking', [
+        "slot" => $slot,
+    ]);
 });
 
 Route::post('booking', function (Request $post) {
-    return view('booking',[
+    return view('booking', [
         "waktu" => waktu::all(),
-        "kode" => $post->slot
+        "slot" => slot::find($post->slot)
     ]);
 });
 
-Route::post('pembayaran',function (Request $post) {
-    $data=[
-        "waktu"=> $post->waktu,
-        "kode"=> $post->kode,
-        "jenis"=> $post->kendaraan,
-        "ds"=> $post->ds,
+Route::post('pembayaran', function (Request $post) {
+    $data = [
+        "waktu_id" => $post->waktu,
+        "slot_id" => $post->kode,
+        "jenis" => $post->kendaraan,
+        "ds" => $post->ds,
     ];
-    var_dump($data);
 
+    booking::create($data);
+
+    $slot = slot::find($post->kode);
+    $kode = $slot->kode . $slot->baris;
+
+
+    return view("pembayaran", [
+        "status" => "Success",
+        "message" => "Tempat parkir $kode berhasil di booking"
+    ]);
 });

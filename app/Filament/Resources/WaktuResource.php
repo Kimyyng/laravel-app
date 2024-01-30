@@ -17,17 +17,26 @@ class WaktuResource extends Resource
 {
     protected static ?string $model = Waktu::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
+
+    protected static ?string $pluralLabel = 'Biaya';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('durasi')
+                    ->suffix("Jam")
                     ->required()
-                    ->maxLength(255),
+                    ->numeric()
+                    ->maxValue(24)
+                    ->minValue(1),
                 Forms\Components\TextInput::make('biaya')
+                    ->label("Harga")
+                    ->prefix("Rp")
                     ->required()
+                    ->minValue(0)
+                    ->step(1000)
                     ->numeric(),
             ]);
     }
@@ -39,6 +48,7 @@ class WaktuResource extends Resource
                 Tables\Columns\TextColumn::make('durasi')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('biaya')
+                    ->label("Harga")
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
