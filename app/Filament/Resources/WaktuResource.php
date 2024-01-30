@@ -46,6 +46,7 @@ class WaktuResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('durasi')
+                    ->suffix(" Jam")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('biaya')
                     ->label("Harga")
