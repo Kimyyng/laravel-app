@@ -10,7 +10,7 @@
 
 <body class="bg-dark text-white">
   <main class="vh-100 d-flex justify-content-center align-items-center container">
-    <div class="row">
+    <div class="row text-center">
       @yield("content")
     </div>
   </main>
