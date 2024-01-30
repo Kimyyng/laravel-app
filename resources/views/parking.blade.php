@@ -1,7 +1,7 @@
 @extends('_default')
 @section('content')
 
-<div class="mt-3">
+<div class="mt-4">
   <p class="mb-0">Parking area</p>
   <h3 class="mt-0">Universitas Nusa Putra</h3>
 </div>
@@ -10,6 +10,11 @@
         <div class="d-grid gap-2 my-2">
           <img class="mx-auto img-fluid" src="img/area.jpg" alt="tempat parkir">
           <h5 class="my-3">Pilih tempat parkir</h5>
+          @if (!is_null(Session::get('message')))
+              <div class="alert alert-secondary" role="alert">
+                {{Session::get('message')}}
+              </div>
+          @endif
           <table class="text-center">
             @foreach ($slot as $kode)
             <tr>

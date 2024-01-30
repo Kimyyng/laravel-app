@@ -1,7 +1,7 @@
 @extends('_default')
 @section('content')
 
-<div class="mt-3">
+<div class="mt-4">
   <p class="mb-0">Kode Parkir</p>
   <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
 </div>

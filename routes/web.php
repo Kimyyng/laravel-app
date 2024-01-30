@@ -1,10 +1,11 @@
 <?php
 
-use App\Models\booking;
-use App\Models\slot;
-use App\Models\waktu;
+use App\Models\Booking;
+use App\Models\Slot;
+use App\Models\Waktu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 
 /*
@@ -23,9 +24,9 @@ Route::get('/', function () {
 });
 
 Route::get('parking', function () {
-    $data = slot::groupBy("kode")->select("kode")->get();
+    $data = Slot::groupBy("kode")->select("kode")->get();
     foreach ($data as &$item) {
-        $slot[$item->kode] = slot::where("kode", $item->kode)->get();
+        $slot[$item->kode] = Slot::where("kode", $item->kode)->get();
     }
 
     return view('parking', [
@@ -34,9 +35,14 @@ Route::get('parking', function () {
 });
 
 Route::post('booking', function (Request $post) {
+    if (is_null($post->slot)) {
+        Session::flash('message', 'pilih salah satu kolom dibawah ini');
+        return redirect()->back();
+    }
+
     return view('booking', [
-        "waktu" => waktu::all(),
-        "slot" => slot::find($post->slot)
+        "waktu" => Waktu::all(),
+        "slot" => Slot::find($post->slot)
     ]);
 });
 
@@ -48,9 +54,9 @@ Route::post('pembayaran', function (Request $post) {
         "ds" => $post->ds,
     ];
 
-    booking::create($data);
+    Booking::create($data);
 
-    $slot = slot::find($post->kode);
+    $slot = Slot::find($post->kode);
     $kode = $slot->kode . $slot->baris;
 
 
