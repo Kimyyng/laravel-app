@@ -12,7 +12,7 @@
         <div class="d-grid gap-2">
           <div>
             <h6 class="my-3">Nomor Kendaraan (DS)</h6>
-            <input name="ds"  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="PA xxxx xx">
+            <input name="ds"  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="PA xxxx xx" autocapitalize="characters">
           </div>
 
           <div>
