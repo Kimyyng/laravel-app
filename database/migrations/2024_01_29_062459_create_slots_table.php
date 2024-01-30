@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->char("kode");
             $table->string("baris");
-            $table->string("kode_slot")->virtualAs('concat(kode, \' \', baris)');
+            $table->string("kode_slot")->virtualAs('concat(kode, baris)');
             $table->boolean("active")->default(true);
             $table->timestamps();
         });
