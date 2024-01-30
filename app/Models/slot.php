@@ -15,7 +15,7 @@ class Slot extends Model
 
     public function booking(): HasMany
     {
-        return $this->hasMany(\App\Models\booking::class);
+        return $this->hasMany(\App\Models\Booking::class);
     }
 
     public function getUsedAttribute()

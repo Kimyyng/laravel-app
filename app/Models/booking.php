@@ -12,11 +12,11 @@ class Booking extends Model
 
     public function slot(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\slot::class);
+        return $this->belongsTo(\App\Models\Slot::class);
     }
 
     public function waktu(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\waktu::class);
+        return $this->belongsTo(\App\Models\Waktu::class);
     }
 }
