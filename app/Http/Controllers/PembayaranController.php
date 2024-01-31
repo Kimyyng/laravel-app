@@ -32,7 +32,7 @@ class PembayaranController extends Controller
                 "checkout_method" => "ONE_TIME_PAYMENT",
                 "channel_code" => $post->input('metode'),
                 "channel_properties" => [
-                    "success_redirect_url" => "https://iparking.abiisaleh.xyz/pembayaran/berhasil/$booking->id"
+                    "success_redirect_url" => "https://iparking.abiisaleh.xyz/pembayaran/status/berhasil/$booking->id"
                 ],
             ]);
 
