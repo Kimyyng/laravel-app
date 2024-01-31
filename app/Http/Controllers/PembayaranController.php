@@ -49,7 +49,7 @@ class PembayaranController extends Controller
 
         if ($data['status'] == 'SUCCEEDED') {
             $booking = Booking::find($id);
-            $booking->lunas = true;
+            $booking->lunas = 1;
             $booking->save();
         }
     }
