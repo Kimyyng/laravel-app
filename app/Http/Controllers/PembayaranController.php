@@ -32,7 +32,7 @@ class PembayaranController extends Controller
                 "checkout_method" => "ONE_TIME_PAYMENT",
                 "channel_code" => $post->input('metode'),
                 "channel_properties" => [
-                    "success_redirect_url" => "https://iparking.abiisaleh.xyz/"
+                    "success_redirect_url" => "https://iparking.abiisaleh.xyz/pembayaran/berhasil/$booking->id"
                 ],
             ]);
 
@@ -51,13 +51,16 @@ class PembayaranController extends Controller
             $booking = Booking::find($id);
             $booking->lunas = true;
             $booking->save();
-
-            $slot = $booking->slot()->kode_slot;
-
-            return view("pembayaran", [
-                "status" => "Success",
-                "message" => "Tempat parkir $slot berhasil di booking"
-            ]);
         }
+    }
+
+    public function status(string $status, string $id)
+    {
+        $slot = Booking::find($id)->slot()->kode_slot;
+
+        return view("pembayaran", [
+            "status" => ucfirst($status),
+            "message" => "Tempat parkir $slot $status di booking"
+        ]);
     }
 }
