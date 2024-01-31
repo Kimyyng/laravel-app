@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Slot;
 use App\Models\Waktu;
 use Illuminate\Http\Request;
@@ -37,6 +38,15 @@ class ParkingController extends Controller
         return view('booking', [
             "waktu" => Waktu::all(),
             "slot" => Slot::find($post->input('slot'))
+        ]);
+    }
+
+    public function find(string $id)
+    {
+        $booking = Booking::with(['slot', 'waktu'])->where('kode_booking', $id)->get()->first();
+
+        return view('detail', [
+            'booking' => $booking,
         ]);
     }
 }

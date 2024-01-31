@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->string("ds");
-            $table->enum("jenis",["motor","mobil","truk"]);
+            $table->enum("jenis", ["motor", "mobil", "truk"]);
             $table->foreignIdFor(Slot::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Waktu::class)->nullable()->constrained()->nullOnDelete();
+            $table->uuid('kode_booking');
+            $table->string('payment_link')->nullable();
             $table->boolean("lunas")->default(false);
             $table->boolean("selesai")->default(false);
             $table->timestamps();

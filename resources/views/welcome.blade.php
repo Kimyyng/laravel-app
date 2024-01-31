@@ -4,7 +4,7 @@
         <h6>{{config("app.name")}}</h6>
 
         <img 
-          src="https://media-public.canva.com/zPsmA/MACxYqzPsmA/2/tl.png" 
+          src="/img/logo.webp" 
           class="mx-auto" 
           alt="mobil parkir" 
           style="filter: invert(100%); max-width: 250px; margin: 100px 0;"
@@ -15,6 +15,7 @@
       
         <div class="d-grid gap-2 mt-4">
           <a href="parking" class="btn btn-light">Get Started</a>
-          <a href="admin" class="btn btn-outline-light">Login</a>
+          <a href="admin" class="btn btn-outline-light">Scan QR Code</a>
+          <a href="admin" class="text-warning d-block">Login as admin</a>
         </div>
 @endSection

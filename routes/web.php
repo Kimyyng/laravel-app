@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ParkingController::class, 'index']);
 Route::get('parking', [ParkingController::class, 'parking']);
 Route::post('booking', [ParkingController::class, 'booking']);
+Route::get('cari/{kode}', [ParkingController::class, 'find'])->name('cari');
 
 Route::prefix('pembayaran')->group(function () {
     Route::post('/', [PembayaranController::class, 'create']);
     Route::post('/cek', [PembayaranController::class, 'callback']);
-    Route::get('/status/{stasus}/{id}', [PembayaranController::class, 'status']);
 });
