@@ -22,5 +22,5 @@ Route::post('booking', [ParkingController::class, 'booking']);
 Route::prefix('pembayaran')->group(function () {
     Route::post('/', [PembayaranController::class, 'create']);
     Route::post('/cek', [PembayaranController::class, 'callback']);
-    Route::post('/status/{stasus}/{id}', [PembayaranController::class, 'status'])
+    Route::post('/status/{stasus}/{id}', [PembayaranController::class, 'status']);
 });
