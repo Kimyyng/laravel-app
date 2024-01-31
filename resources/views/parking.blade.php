@@ -1,10 +1,10 @@
 @extends('_default')
 @section('content')
 
-<div class="mt-4">
-  <p class="mb-0">Parking area</p>
-  <h3 class="mt-0">Universitas Nusa Putra</h3>
-</div>
+      <div class="mt-4">
+        <p class="mb-0">Parking area</p>
+        <h3 class="mt-0">Universitas Nusa Putra</h3>
+      </div>
       <form action="booking" method="post">
         @csrf 
         <div class="d-grid gap-2 my-2">

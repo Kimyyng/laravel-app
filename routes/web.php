@@ -1,12 +1,8 @@
 <?php
 
-use App\Models\Booking;
-use App\Models\Slot;
-use App\Models\Waktu;
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-use Symfony\Component\HttpFoundation\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,49 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ParkingController::class, 'index']);
+Route::get('parking', [ParkingController::class, 'parking']);
+Route::post('booking', [ParkingController::class, 'booking']);
 
-Route::get('parking', function () {
-    $data = Slot::groupBy("kode")->select("kode")->get();
-    foreach ($data as &$item) {
-        $slot[$item->kode] = Slot::where("kode", $item->kode)->get();
-    }
-
-    return view('parking', [
-        "slot" => $slot,
-    ]);
-});
-
-Route::post('booking', function (Request $post) {
-    if (is_null($post->slot)) {
-        Session::flash('message', 'pilih salah satu kolom dibawah ini');
-        return redirect()->back();
-    }
-
-    return view('booking', [
-        "waktu" => Waktu::all(),
-        "slot" => Slot::find($post->slot)
-    ]);
-});
-
-Route::post('pembayaran', function (Request $post) {
-    $data = [
-        "waktu_id" => $post->waktu,
-        "slot_id" => $post->kode,
-        "jenis" => $post->kendaraan,
-        "ds" => $post->ds,
-    ];
-
-    Booking::create($data);
-
-    $slot = Slot::find($post->kode);
-    $kode = $slot->kode . $slot->baris;
-
-
-    return view("pembayaran", [
-        "status" => "Success",
-        "message" => "Tempat parkir $kode berhasil di booking"
-    ]);
+Route::prefix('pembayaran')->group(function () {
+    Route::post('/', [PembayaranController::class, 'create']);
+    Route::post('/cek', [ParkingController::class, 'callback']);
 });

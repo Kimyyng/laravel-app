@@ -1,10 +1,11 @@
 @extends('_default')
 @section('content')
 
-<div class="mt-4">
-  <p class="mb-0">Kode Parkir</p>
-  <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
-</div>
+  <div class="mt-4">
+    <p class="mb-0">Kode Parkir</p>
+    <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
+  </div>
+
       <form action="pembayaran" method="POST">
         @csrf 
         <input type="hidden" name="kode" value="{{$slot->id}}">
@@ -12,7 +13,7 @@
         <div class="d-grid gap-2">
           <div>
             <h6 class="my-3">Nomor Kendaraan (DS)</h6>
-            <input name="ds"  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="PA xxxx xx" autocapitalize="characters">
+            <input name="ds" required type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="PA xxxx xx" autocapitalize="characters">
           </div>
 
           <div>
@@ -84,6 +85,38 @@
                 <label class="btn btn-light btn-outline-dark" for="option3b">
                   <p class="mb-0 fw-bold">Truk</p>
                   <p>Roda ≥ 4</p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h6 class="my-3">Metode Pembayaran</h6>
+            <div class="row">
+              <div class="col-4 d-grid">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="metode"
+                  id="dana"
+                  value="ID_DANA"
+                  autocomplete="off"
+                />
+                <label class="btn btn-light btn-outline-dark" for="dana">
+                  <p class="mb-0 fw-bold text-right">DANA</p>
+                </label>
+              </div>
+
+              <div class="col-4 d-grid">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="metode"
+                  id="linkaja"
+                  value="ID_LINKAJA"
+                  autocomplete="off"
+                />
+                <label class="btn btn-light btn-outline-dark" for="linkaja">
+                  <p class="mb-0 fw-bold">LINKAJA</p>
                 </label>
               </div>
             </div>
