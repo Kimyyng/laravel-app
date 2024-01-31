@@ -36,9 +36,9 @@ class PembayaranController extends Controller
                 ],
             ]);
 
-        $result = $response->json();
+        $result = $response->object();
 
-        return redirect()->to($result['actions']['mobile_web_checkout_url']);
+        return redirect()->to($result->actions->mobile_web_checkout_url);
     }
 
     public function callback()
