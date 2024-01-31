@@ -45,6 +45,8 @@ class PembayaranController extends Controller
     {
         $data = request()->all();
 
+        dd($data);
+
         $id = $data['reference_id'];
 
         if ($data['status'] == 'SUCCEEDED') {
