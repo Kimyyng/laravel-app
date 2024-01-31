@@ -43,9 +43,7 @@ class PembayaranController extends Controller
 
     public function callback()
     {
-        $data = request()->all();
-
-        var_dump($data);
+        $data = request()->all()['data'];
 
         $id = $data['reference_id'];
 
