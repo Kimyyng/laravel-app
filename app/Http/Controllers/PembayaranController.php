@@ -26,7 +26,7 @@ class PembayaranController extends Controller
         $response = Http::withHeader('content-type', 'application/json')
             ->withBasicAuth(env('XENDIT_API_KEY'), '')
             ->post('https://api.xendit.co/ewallets/charges', [
-                "reference_id" => $booking->id,
+                "reference_id" => "$booking->id",
                 "currency" => "IDR",
                 "amount" => $total,
                 "checkout_method" => "ONE_TIME_PAYMENT",
@@ -38,7 +38,7 @@ class PembayaranController extends Controller
 
         $result = $response->json();
 
-        return redirect()->to($result['action']['smobile_web_checkout_url']);
+        return redirect()->to($result['actions']['mobile_web_checkout_url']);
     }
 
     public function callback()
