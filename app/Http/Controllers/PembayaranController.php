@@ -45,7 +45,7 @@ class PembayaranController extends Controller
     {
         $data = request()->all();
 
-        dd($data);
+        var_dump($data);
 
         $id = $data['reference_id'];
 
