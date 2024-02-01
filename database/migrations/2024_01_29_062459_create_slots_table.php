@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->char("kode");
-            $table->integer("jumlah");
+            $table->string("baris");
+            $table->string("kode_slot")->virtualAs('concat(kode, baris)');
+            $table->boolean("active")->default(true);
             $table->timestamps();
         });
     }

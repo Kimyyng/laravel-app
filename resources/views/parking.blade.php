@@ -1,34 +1,41 @@
-@extends('template')
+@extends('_default')
 @section('content')
 
-<div class="mt-3">
-  <p class="mb-0">Selamat datang di</p>
-  <h3 class="mt-0">Nusa Putra Parking</h3>
-</div>
+      <div class="mt-4">
+        <p class="mb-0">Parking area</p>
+        <h3 class="mt-0">Universitas Nusa Putra</h3>
+      </div>
       <form action="booking" method="post">
         @csrf 
-        <div class="d-grid gap-2">
+        <div class="d-grid gap-2 my-2">
+          <img class="mx-auto img-fluid" src="img/area.jpg" alt="tempat parkir">
           <h5 class="my-3">Pilih tempat parkir</h5>
+          @if (!is_null(Session::get('message')))
+              <div class="alert alert-secondary" role="alert">
+                {{Session::get('message')}}
+              </div>
+          @endif
           <table class="text-center">
-            @foreach ($slot as $item)
+            @foreach ($slot as $kode)
             <tr>
-              @for ($i = 1; $i <= $item->jumlah; $i++)
+              @foreach ($kode as $item)
               <td>
                 <input
                   type="radio"
                   class="btn-check"
                   name="slot"
-                  id="{{$item->kode.$i}}"
+                  id="{{$item->id}}"
                   autocomplete="off"
-                  value="{{$item->kode.$i}}"
+                  value="{{$item->id}}"
+                  {{ ($item->used || !$item->active) ? "disabled" : "" }}
                 />
                 <label
-                  class="btn btn-light btn-outline-dark"
-                  for="{{$item->kode.$i}}"
-                  >{{$item->kode.$i}}</label
+                  class="btn  {{ $item->used ? "btn-dark text-white" : "btn-light btn-outline-dark" }}"
+                  for="{{$item->id}}"
+                  >{{$item->kode.$item->baris}}</label
                 >
               </td>
-              @endfor
+              @endforeach
             </tr>
             @endforeach
           </table>

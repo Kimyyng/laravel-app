@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\slot;
-use App\Models\waktu;
+use App\Models\Slot;
+use App\Models\Waktu;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->string("ds");
-            $table->enum("jenis",["motor","mobil","truk"]);
-            $table->string("kode");
-            $table->foreignIdFor(waktu::class)->nullable()->constrained()->nullOnDelete();
-            $table->boolean("lunas");
-            $table->boolean("selesai");
+            $table->enum("jenis", ["motor", "mobil", "truk"]);
+            $table->foreignIdFor(Slot::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Waktu::class)->nullable()->constrained()->nullOnDelete();
+            $table->uuid('kode_booking');
+            $table->string('payment_link')->nullable();
+            $table->boolean("lunas")->default(false);
+            $table->boolean("selesai")->default(false);
             $table->timestamps();
         });
     }
