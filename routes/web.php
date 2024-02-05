@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ParkingController::class, 'index']);
 Route::get('parking', [ParkingController::class, 'parking'])->name('slot');
 Route::post('booking', [ParkingController::class, 'booking']);
-Route::get('scan/{jenis}', [ParkingController::class, 'scan']);
+Route::get('scan/{jenis}', [ParkingController::class, 'scan'])->name('scan');
 Route::get('cari/{id}', [ParkingController::class, 'find'])->name('cari');
 Route::get('pdf/{id}', [ParkingController::class, 'print'])->name('pdf');
 
