@@ -14,8 +14,8 @@
         <p class="mb-5">booking tempat parkir langsung dari hp anda</p>
       
         <div class="d-grid gap-2 mt-4">
-          <a href="parking" class="btn btn-light">Get Started</a>
-          <a href="admin" class="btn btn-outline-light">Scan QR Code</a>
+          <a href="{{route('slot')}}" class="btn btn-light">Get Started</a>
+          <a href="{{route('scan',['cari'])}}" class="btn btn-outline-light">Scan QR Code</a>
           <a href="admin" class="text-warning d-block">Login as admin</a>
         </div>
 @endSection

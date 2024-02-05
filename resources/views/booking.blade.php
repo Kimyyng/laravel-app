@@ -28,6 +28,7 @@
                   value="{{$item->id}}"
                   id="{{$item->id}}"
                   autocomplete="off"
+                  {{ ($waktu->first() == $item ) ? 'checked' : ''}}
                 />
                 <label class="btn btn-light btn-outline-dark" for="{{$item->id}}">
                   <p class="mb-0 fw-bold text-right">{{$item->durasi}} Jam</p>
@@ -100,6 +101,7 @@
                   id="dana"
                   value="ID_DANA"
                   autocomplete="off"
+                  checked
                 />
                 <label class="btn btn-light btn-outline-dark" for="dana">
                   <p class="mb-0 fw-bold text-right">DANA</p>
