@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ParkingController::class, 'index']);
+Route::get('/', [ParkingController::class, 'index'])->name('index');
 Route::get('parking', [ParkingController::class, 'parking'])->name('slot');
 Route::post('booking', [ParkingController::class, 'booking']);
 Route::get('scan/{jenis}', [ParkingController::class, 'scan'])->name('scan');
