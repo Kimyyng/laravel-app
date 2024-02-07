@@ -4,6 +4,9 @@
       <div class="mt-4">
         <p class="mb-0">Parking area</p>
         <h3 class="mt-0">Universitas Nusa Putra</h3>
+        <a href="http://127.0.0.1:8000/" class="btn btn-light btn-outline-dark">
+          <p class="mb-0 fw-bold">Back</p>
+      </a>
       </div>
       <form action="booking" method="post">
         @csrf 

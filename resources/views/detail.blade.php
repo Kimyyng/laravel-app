@@ -41,5 +41,9 @@
         <td>Rp. {{ number_format($booking->denda)}}</td>
     </tr>
 </table>
+
+<a href="http://127.0.0.1:8000/parking" class="btn btn-light btn-outline-dark">
+    <p class="mb-0 fw-bold">Back</p>
+</a>
     
 @endsection

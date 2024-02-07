@@ -10,6 +10,7 @@
     <main class="container">
       @yield('content')
     </main>
+
     <script src="/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
