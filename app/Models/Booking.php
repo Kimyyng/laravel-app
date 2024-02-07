@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Ramsey\Uuid\Uuid;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Booking extends Model
 {
@@ -73,11 +72,6 @@ class Booking extends Model
     public function getDendaAttribute()
     {
         return $this->waktu_tambahan * 2000;
-    }
-
-    public function getQrAttribute()
-    {
-        return QrCode::size(110)->format('png')->generate($this->id);
     }
 
     public function slot(): BelongsTo
