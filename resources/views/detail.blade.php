@@ -2,7 +2,7 @@
 
 @section("content")
 
-<img src="data:image/png;base64,{{ base64_encode($result->qr) }}" alt="kode QR Tiket">
+<img src="http://api.qrserver.com/v1/create-qr-code/?data={{$result->id}}&size=120x120" alt="kode QR Tiket">
 
 @if ($result->lunas)
     @if ($result->selesai)
