@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ParkingController::class, 'index']);
 Route::get('parking', [ParkingController::class, 'parking'])->name('slot');
 Route::post('booking', [ParkingController::class, 'booking']);
-Route::get('scan/{jenis}', [ParkingController::class, 'scan']);
+Route::get('scan/{jenis}', [ParkingController::class, 'scan'])->name('scan');
 Route::get('cari/{id}', [ParkingController::class, 'find'])->name('cari');
 Route::get('pdf/{id}', [ParkingController::class, 'print'])->name('pdf');
 
@@ -29,7 +29,6 @@ Route::prefix('pembayaran')->group(function () {
 });
 
 Route::prefix('api')->group(function () {
-    Route::get('/cari/{id}', [ParkingController::class, 'find'])->name('api.cari');
     Route::get('/cekin/{id}', [ParkingController::class, 'cekin'])->name('api.cekin');
     Route::get('/cekout/{id}', [ParkingController::class, 'cekout'])->name('api.cekout');
 })->middleware([Authenticate::class]);

@@ -26,14 +26,14 @@ class Booking extends Model
     protected function cekin(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Carbon::parse($value)
+            get: fn ($value) => ($value) ? Carbon::parse($value) : null
         );
     }
 
     protected function cekout(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Carbon::parse($value)
+            get: fn ($value) => ($value) ? Carbon::parse($value) : null
         );
     }
 
@@ -77,7 +77,7 @@ class Booking extends Model
 
     public function getQrAttribute()
     {
-        return QrCode::size(150)->generate($this->id);
+        return QrCode::size(110)->format('png')->generate($this->id);
     }
 
     public function slot(): BelongsTo

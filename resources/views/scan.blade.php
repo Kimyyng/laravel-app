@@ -23,7 +23,7 @@
 <script>
     async function onScanSuccess(decodedText, decodedResult) {
         const modal = new bootstrap.Modal('#resultModal');
-        const response = await fetch(`{{route($jenis)}}/${decodedText}`);
+        const response = await fetch(`{{url('api/'.$jenis)}}/${decodedText}`);
         const data = await response.json();
         console.log(data);
 
@@ -50,7 +50,7 @@
         { 
             formatsToSupport: [ Html5QrcodeSupportedFormats.QR_CODE ],
             fps: 10, 
-            qrbox: {width: 250, height: 250} 
+            qrbox: {width: 250, height: 250}
         },
         false
     );

@@ -15,7 +15,6 @@
       
         <div class="d-grid gap-2 mt-4">
           <a href="{{route('slot')}}" class="btn btn-light">Get Started</a>
-          <a href="{{route('scan',['cari'])}}" class="btn btn-outline-light">Scan QR Code</a>
-          <a href="admin" class="text-warning d-block">Login as admin</a>
+          <a href="{{url('admin')}}" class="btn btn-outline-light">Login as admin</a>
         </div>
 @endSection

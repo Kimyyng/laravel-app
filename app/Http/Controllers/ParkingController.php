@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ParkingController extends Controller
 {
@@ -55,16 +56,16 @@ class ParkingController extends Controller
         $booking = Booking::find($id);
 
         return view('detail', [
-            'booking' => $booking,
+            'result' => $booking,
         ]);
     }
 
     public function print($id)
     {
-        $data['result'] = Booking::find($id);
+        $booking = Booking::find($id);
 
-        $pdf = Pdf::loadView('nota', $data)->setPaper('a5', 'potratit');
-        return $pdf->stream();
+        $pdf = Pdf::loadView('nota', ['result' => $booking])->setPaper('a6', 'potratit');
+        return $pdf->download('Tiket ' . config('app.name') . '-' . $booking->id . '.pdf');
     }
 
     public function cekin($id)
