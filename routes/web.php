@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ParkingController::class, 'index']);
-Route::get('parking', [ParkingController::class, 'parking']);
+Route::get('/', [ParkingController::class, 'index'])->name('index');
+Route::get('parking', [ParkingController::class, 'parking'])->name('slot');
 Route::post('booking', [ParkingController::class, 'booking']);
-Route::get('cari/{kode}', [ParkingController::class, 'find'])->name('cari');
+Route::get('scan/{jenis}', [ParkingController::class, 'scan'])->name('scan');
+Route::get('cari/{id}', [ParkingController::class, 'find'])->name('cari');
+Route::get('pdf/{id}', [ParkingController::class, 'print'])->name('pdf');
 
 Route::prefix('pembayaran')->group(function () {
     Route::post('/', [PembayaranController::class, 'create']);
     Route::post('/cek', [PembayaranController::class, 'callback']);
 });
+
+Route::prefix('api')->group(function () {
+    Route::get('/cekin/{id}', [ParkingController::class, 'cekin'])->name('api.cekin');
+    Route::get('/cekout/{id}', [ParkingController::class, 'cekout'])->name('api.cekout');
+})->middleware([Authenticate::class]);

@@ -2,27 +2,19 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Ramsey\Uuid\Uuid;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Booking extends Model
 {
     use HasFactory;
     use HasUuids;
-
-    public function newUniqueId(): string
-    {
-        return (string) Uuid::uuid4();
-    }
-
-    public function uniqueIds(): array
-    {
-        return ['kode_booking'];
-    }
 
     protected function ds(): Attribute
     {
@@ -31,14 +23,61 @@ class Booking extends Model
         );
     }
 
+    protected function cekin(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ($value) ? Carbon::parse($value) : null
+        );
+    }
+
+    protected function cekout(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ($value) ? Carbon::parse($value) : null
+        );
+    }
+
+    public function getSisaWaktuAttribute()
+    {
+        return now()->diff($this->batasWaktu)->format('%h jam, %i menit, %s detik');
+    }
+
+    public function getBatasWaktuAttribute()
+    {
+        return $this->created_at->addHours($this->waktu->durasi);
+    }
+
+    public function getSelesaiAttribute()
+    {
+        if (is_null($this->cekout))
+            return false;
+
+        return true;
+    }
+
+    public function getWaktuTambahanAttribute()
+    {
+        $timeSpend =  $this->created_at->diffInHours(now());
+
+        if ($this->selesai) {
+            if ($this->created_at->diffInHours($this->selesai_at) > $this->waktu->durasi)
+                return $this->batasWaktu->diffInHours($this->selesai_at);
+        } else {
+            if ($timeSpend > $this->waktu->durasi)
+                return  $timeSpend;
+        }
+
+        return 0;
+    }
+
     public function getDendaAttribute()
     {
-        // $waktu = $this->created_at + $this->with('waktu')->waktu()->durasi;
+        return $this->waktu_tambahan * 2000;
+    }
 
-        // if ($waktu < time()) {
-        //     return 2000;
-        // }
-        return 0;
+    public function getQrAttribute()
+    {
+        return QrCode::size(110)->format('png')->generate($this->id);
     }
 
     public function slot(): BelongsTo

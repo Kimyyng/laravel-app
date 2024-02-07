@@ -21,7 +21,7 @@ class PembayaranController extends Controller
         ]);
 
         $total = Waktu::find($post->input('waktu'))->biaya;
-        $success_url = route('cari', [$booking->kode_booking]);
+        $success_url = route('cari', [$booking->id]);
 
         //bayar
         $response = Http::withHeader('content-type', 'application/json')
@@ -49,13 +49,21 @@ class PembayaranController extends Controller
     public function callback()
     {
         $data = request()->all()['data'];
-
         $id = $data['reference_id'];
 
         if ($data['status'] == 'SUCCEEDED') {
             $booking = Booking::find($id);
+
+            if ($booking->isEmpty()) {
+                return response('Data tidak ditemukan')->json();
+            }
+
             $booking->lunas = 1;
             $booking->save();
+
+            return response('Status berhasil diubah')->json();
         }
+
+        return response('Gagal...')->json();
     }
 }

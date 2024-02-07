@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ParkingController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

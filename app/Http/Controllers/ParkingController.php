@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Slot;
 use App\Models\Waktu;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ParkingController extends Controller
 {
@@ -41,12 +44,89 @@ class ParkingController extends Controller
         ]);
     }
 
-    public function find(string $id)
+    public function scan($jenis)
     {
-        $booking = Booking::with(['slot', 'waktu'])->where('kode_booking', $id)->get()->first();
+        return view('scan', [
+            'jenis' => 'api.' . $jenis
+        ]);
+    }
+
+    public function find($id)
+    {
+        $booking = Booking::find($id);
 
         return view('detail', [
-            'booking' => $booking,
+            'result' => $booking,
+        ]);
+    }
+
+    public function print($id)
+    {
+        $booking = Booking::find($id);
+
+        $pdf = Pdf::loadView('nota', ['result' => $booking])->setPaper('a6', 'potratit');
+        return $pdf->download('Tiket ' . config('app.name') . '-' . $booking->id . '.pdf');
+    }
+
+    public function cekin($id)
+    {
+        $booking = Booking::find($id);
+
+        if (!$booking)
+            return response([
+                'msg' => 'Data tidak ditemukan',
+                'success' => false
+            ]);
+
+        if (!$booking->lunas)
+            return response([
+                'msg' => 'Belum lunas',
+                'success' => false
+            ]);
+
+        if (now() > $booking->batas_waktu)
+            return response([
+                'msg' => 'Tiket Expired',
+                'success' => false
+            ]);
+
+        if ($booking->cekin)
+            return response([
+                'msg' => 'Sudah Cekin ' . $booking->cekin->diffForHumans(),
+                'success' => false,
+                'tanggal' => $booking->cekin
+            ]);
+
+        $booking->cekin = now();
+        $booking->save();
+        return response([
+            'msg' => 'Berhasil Cekin',
+            'success' => true
+        ]);
+    }
+
+    public function cekout($id)
+    {
+        $booking = Booking::find($id);
+
+        if (!$booking)
+            return response([
+                'msg' => 'Data tidak ditemukan',
+                'success' => false
+            ]);
+        if ($booking->cekout)
+            return response([
+                'msg' => 'Sudah Cekout ' . $booking->cekout->diffForHumans(),
+                'success' => false,
+                'tanggal' => $booking->cekout
+            ]);
+
+        $booking->cekout = now();
+        $booking->save();
+        return response([
+            'msg' => 'Berhasil Cekout',
+            'success' => true,
+            'denda' => $booking->denda
         ]);
     }
 }
