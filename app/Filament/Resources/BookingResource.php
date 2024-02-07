@@ -7,6 +7,7 @@ use App\Filament\Resources\BookingResource\RelationManagers;
 use App\Models\Booking;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -41,9 +42,9 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('kode_booking')->copyable(),
                 Tables\Columns\TextColumn::make('slot.kode_slot')
-                    ->numeric()
-                    ->sortable(),
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('ds')
                     ->label("DS")
                     ->searchable(),
@@ -51,7 +52,14 @@ class BookingResource extends Resource
                     ->suffix(" Jam"),
                 Tables\Columns\IconColumn::make('lunas')
                     ->boolean(),
-                Tables\Columns\ToggleColumn::make('selesai'),
+                Tables\Columns\ToggleColumn::make('selesai')
+                    ->disabled(fn ($record) => !$record->lunas)
+                    ->beforeStateUpdated(function ($record, $state) {
+                        if ($state)
+                            return $record->cekout = now();
+
+                        return null;
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
