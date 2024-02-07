@@ -21,7 +21,7 @@
         <h1>{{$result->slot->kode_slot}}</h1>
         Tiket ini berlaku untuk {{$result->jenis}} dengan nomor kendaraan (DS) <b>{{$result->ds}}</b> sampai {{$result->batas_waktu}} <a href="{{route('cari',[$result->id])}}">cek status</a>
       </td></tr>
-      <tr><td><img src="data:image/png;base64,{{ base64_encode($result->qr) }}" alt="kode QR Tiket"></td></tr>
+      <tr><td><img src="http://api.qrserver.com/v1/create-qr-code/?data={{$result->id}}&size=120x120" alt="kode QR Tiket"></td></tr>
       <tr><td>Scan kode QR ini untuk melakukan Cekin/Cekout <br><br></td></tr>
       <tr><td>made by <b>{{config('app.name')}}</b></td></tr>
     </table>
