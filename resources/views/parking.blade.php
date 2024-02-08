@@ -1,18 +1,19 @@
 @extends('_default')
 @section('content')
 
-      <div class="mt-4 d-flex justify-content-between align-items-center">
-<div>
-        <p class="mb-0">Parking area</p>
-        <h3 class="mt-0">Universitas Nusa Putra</h3>
-</div>
-<div class="shadow-sm p-3 rounded-circle" style={aspect-ratio: 1;}>
-<i class="bi bi-arrow-left"></i>
-</div>
+      <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
+        <div>
+          <p class="mb-0">Parking area</p>
+          <h3 class="mt-0">Universitas Nusa Putra</h3>
+        </div>
+        <a href="{{url('/')}}" class="btn btn-light border border-gray shadow rounded-circle p-3" style="height:auto; width:60px; aspect-ratio:1;">
+          <i class="bi bi-arrow-left"></i>
+        </a>
       </div>
+
       <form action="booking" method="post">
         @csrf 
-        <div class="d-grid gap-2 my-2">
+        <div class="d-grid gap-2 mt-2">
           <img class="mx-auto img-fluid" src="img/area.jpg" alt="tempat parkir">
           <h5 class="my-3">Pilih tempat parkir</h5>
           @if (!is_null(Session::get('message')))
@@ -45,7 +46,7 @@
             @endforeach
           </table>
 
-          <input class="btn btn-dark mt-5 py-2" type="submit" value="Booking" />
+          <input class="btn btn-dark mt-2 py-2" type="submit" value="Booking" />
         </div>
       </form>
 

@@ -1,10 +1,15 @@
 @extends('_default')
 @section('content')
 
-  <div class="mt-4">
-    <p class="mb-0">Kode Parkir</p>
-    <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
-  </div>
+      <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
+        <div>
+          <p class="mb-0">Kode Parkir</p>
+          <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
+        </div>
+        <a href="{{url('parking')}}" class="btn btn-light border border-gray shadow rounded-circle p-3" style="height:auto; width:60px; aspect-ratio:1;">
+          <i class="bi bi-arrow-left"></i>
+        </a>
+      </div>
 
       <form action="pembayaran" method="POST">
         @csrf 

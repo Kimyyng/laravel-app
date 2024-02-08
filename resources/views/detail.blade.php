@@ -2,7 +2,7 @@
 
 @section("content")
 
-<img src="http://api.qrserver.com/v1/create-qr-code/?data={{$result->id}}&size=120x120" alt="kode QR Tiket">
+<img src="http://api.qrserver.com/v1/create-qr-code/?data={{$result->id}}&size=120x120" class="my-3" alt="kode QR Tiket">
 
 @if ($result->lunas)
     @if ($result->selesai)
@@ -68,5 +68,10 @@
     </tr>
     @endif
 </table>
+
+<p>
+    👈 Go back 
+    <a href="{{url('/')}}" class="text-decoration-none fw-bold text-white">Home</a>
+</p>
 
 @endsection

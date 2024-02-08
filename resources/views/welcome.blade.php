@@ -1,8 +1,6 @@
 @extends("_simple")
 
 @section("content")
-        <h6>{{config("app.name")}}</h6>
-
         <img 
           src="/img/logo.webp" 
           class="mx-auto" 
