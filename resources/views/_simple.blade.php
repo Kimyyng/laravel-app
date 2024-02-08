@@ -15,7 +15,7 @@
 </head>
 
 <body class="bg-dark text-white">
-  <main class="vh-100 d-flex justify-content-center align-items-center mx-auto p-1">
+  <main class="vh-100 d-flex justify-content-center align-items-center mx-auto py-1 px-2">
     <div class="text-center">
       <h6><a href="{{url('/')}}" class="text-white text-decoration-none">{{config("app.name")}}</a></h6>
       @yield("content")
