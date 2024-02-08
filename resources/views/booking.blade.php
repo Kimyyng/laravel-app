@@ -126,6 +126,20 @@
                   <p class="mb-0 fw-bold">LINKAJA</p>
                 </label>
               </div>
+
+              <div class="col-4 d-grid">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="metode"
+                  id="cash"
+                  value="CASH"
+                  autocomplete="off"
+                />
+                <label class="btn btn-light btn-outline-dark" for="cash">
+                  <p class="mb-0 fw-bold">Tunai</p>
+                </label>
+              </div>
             </div>
           </div>
           <input

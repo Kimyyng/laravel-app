@@ -6,10 +6,8 @@ use App\Models\Booking;
 use App\Models\Slot;
 use App\Models\Waktu;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ParkingController extends Controller
 {
@@ -122,7 +120,9 @@ class ParkingController extends Controller
             ]);
 
         $booking->cekout = now();
+        $booking->total = $booking->denda + $booking->waktu->biaya;
         $booking->save();
+
         return response([
             'msg' => 'Berhasil Cekout',
             'success' => true,

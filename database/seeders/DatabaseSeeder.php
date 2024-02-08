@@ -35,5 +35,7 @@ class DatabaseSeeder extends Seeder
                 "biaya" => 2000 * $jam,
             ]);
         }
+
+        \App\Models\Booking::factory(1000)->create();
     }
 }

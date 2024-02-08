@@ -56,11 +56,11 @@ class Booking extends Model
 
     public function getWaktuTambahanAttribute()
     {
-        $timeSpend =  $this->created_at->diffInHours(now());
+        $timeSpend =  $this->cekin->diffInHours(now());
 
         if ($this->selesai) {
-            if ($this->created_at->diffInHours($this->selesai_at) > $this->waktu->durasi)
-                return $this->batasWaktu->diffInHours($this->selesai_at);
+            if ($this->cekin->diffInHours($this->cekout) > $this->waktu->durasi)
+                return $this->batasWaktu->diffInHours($this->cekout);
         } else {
             if ($timeSpend > $this->waktu->durasi)
                 return  $timeSpend;

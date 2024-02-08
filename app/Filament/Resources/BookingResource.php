@@ -42,16 +42,19 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kode_booking')->copyable(),
+                Tables\Columns\TextColumn::make('id')->copyable(),
                 Tables\Columns\TextColumn::make('slot.kode_slot')
                     ->numeric(),
                 Tables\Columns\TextColumn::make('ds')
                     ->label("DS")
                     ->searchable(),
+                Tables\Columns\TextColumn::make('pembayaran'),
                 Tables\Columns\TextColumn::make('waktu.durasi')
                     ->suffix(" Jam"),
-                Tables\Columns\IconColumn::make('lunas')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('total')
+                    ->prefix('Rp. ')
+                    ->numeric(),
+                Tables\Columns\ToggleColumn::make('lunas'),
                 Tables\Columns\ToggleColumn::make('selesai')
                     ->disabled(fn ($record) => !$record->lunas)
                     ->beforeStateUpdated(function ($record, $state) {

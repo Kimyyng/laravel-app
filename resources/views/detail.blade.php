@@ -14,7 +14,13 @@
     @endif    
 @else
     <h1 class="text-warning">Pending</h1>
-    <p>Harap segera melakukan pembayaran <a href="{{$result->payment_link}}" class="text-warning">disini</a></p>
+    <p>Harap segera melakukan pembayaran 
+        @if ($result->payment_link)
+            <a href="{{$result->payment_link}}" class="text-warning">disini</a>
+        @else
+            ditempat 
+        @endif
+    </p>
 @endif
 
 <table class="text-start table table-dark">

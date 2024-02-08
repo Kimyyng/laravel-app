@@ -19,10 +19,12 @@ return new class extends Migration
             $table->enum("jenis", ["motor", "mobil", "truk"]);
             $table->foreignIdFor(Slot::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Waktu::class)->nullable()->constrained()->nullOnDelete();
+            $table->string('pembayaran');
             $table->string('payment_link')->nullable();
             $table->boolean("lunas")->default(false);
             $table->timestamp("cekin")->nullable();
             $table->timestamp("cekout")->nullable();
+            $table->integer("total")->nullable();
             $table->timestamps();
         });
     }
