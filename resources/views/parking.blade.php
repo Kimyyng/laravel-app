@@ -6,7 +6,7 @@
         <p class="mb-0">Parking area</p>
         <h3 class="mt-0">Universitas Nusa Putra</h3>
 </div>
-<div class="shadow p-3 rounded-circle">
+<div class="shadow-sm p-3 rounded-circle" style={aspect-ratio: 1;}>
 <i class="bi bi-arrow-left"></i>
 </div>
       </div>
