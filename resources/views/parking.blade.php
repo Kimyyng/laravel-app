@@ -1,9 +1,14 @@
 @extends('_default')
 @section('content')
 
-      <div class="mt-4">
+      <div class="mt-4 d-flex justify-content-between align-items-center">
+<div>
         <p class="mb-0">Parking area</p>
         <h3 class="mt-0">Universitas Nusa Putra</h3>
+</div>
+<div class="shadow p-3 rounded-circle">
+<i class="bi bi-arrow-left"></i>
+</div>
       </div>
       <form action="booking" method="post">
         @csrf 
