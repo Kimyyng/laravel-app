@@ -14,7 +14,7 @@
     </style>
   </head>
   <body>
-    <main class="mx-auto">
+    <main class="mx-auto p-1">
       @yield('content')
     </main>
     <script src="/dist/js/bootstrap.bundle.min.js"></script>
