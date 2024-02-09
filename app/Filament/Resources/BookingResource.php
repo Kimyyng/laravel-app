@@ -53,11 +53,14 @@ class BookingResource extends Resource
                     ->label("DS")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pembayaran'),
+                Tables\Columns\TextColumn::make('waktu.durasi')
+                    ->suffix(" Jam"),
                 Tables\Columns\TextColumn::make('denda')
                     ->prefix('Rp. ')
                     ->numeric(),
-                Tables\Columns\TextColumn::make('waktu.durasi')
-                    ->suffix(" Jam"),
+                Tables\Columns\TextColumn::make('total')
+                    ->prefix('Rp. ')
+                    ->numeric(),
                 Tables\Columns\ToggleColumn::make('lunas'),
                 Tables\Columns\ToggleColumn::make('selesai')
                     ->disabled(fn ($record) => !$record->lunas)
