@@ -17,6 +17,7 @@
     <main class="mx-auto py-1 px-2">
       @yield('content')
     </main>
+
     <script src="/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
