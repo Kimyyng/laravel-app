@@ -21,7 +21,7 @@ class Slot extends Model
     public function getUsedAttribute()
     {
         return $this->whereHas("booking", function (Builder $query) {
-            $query->where('lunas', true)->where('selesai', false);
+            $query->where('slot_id', $this->id)->where('lunas', true)->where('selesai', false);
         })->get()->isNotEmpty();
     }
 }
