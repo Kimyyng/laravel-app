@@ -46,14 +46,6 @@ class Booking extends Model
         return $this->created_at->addHours($this->waktu->durasi);
     }
 
-    public function getSelesaiAttribute()
-    {
-        if (is_null($this->cekout))
-            return false;
-
-        return true;
-    }
-
     public function getWaktuTambahanAttribute()
     {
         $timeSpend =  $this->created_at->diffInHours(now());
