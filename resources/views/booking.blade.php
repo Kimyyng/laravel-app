@@ -1,10 +1,15 @@
 @extends('_default')
 @section('content')
 
-  <div class="mt-4">
-    <p class="mb-0">Kode Parkir</p>
-    <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
-  </div>
+      <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
+        <div>
+          <p class="mb-0">Kode Parkir</p>
+          <h3 class="mt-0">{{$slot->kode.$slot->baris}}</h3>
+        </div>
+        <a href="{{url('parking')}}" class="btn btn-light border border-gray shadow rounded-circle p-3" style="height:auto; width:60px; aspect-ratio:1;">
+          <i class="bi bi-arrow-left"></i>
+        </a>
+      </div>
 
       <form action="pembayaran" method="POST">
         @csrf 
@@ -119,6 +124,20 @@
                 />
                 <label class="btn btn-light btn-outline-dark" for="linkaja">
                   <p class="mb-0 fw-bold">LINKAJA</p>
+                </label>
+              </div>
+
+              <div class="col-4 d-grid">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="metode"
+                  id="cash"
+                  value="CASH"
+                  autocomplete="off"
+                />
+                <label class="btn btn-light btn-outline-dark" for="cash">
+                  <p class="mb-0 fw-bold">Tunai</p>
                 </label>
               </div>
             </div>

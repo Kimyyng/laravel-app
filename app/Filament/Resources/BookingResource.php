@@ -42,35 +42,41 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kode_booking')->copyable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('slot.kode_slot')
-                    ->numeric(),
+                    ->numeric()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('ds')
                     ->label("DS")
                     ->searchable(),
+                Tables\Columns\TextColumn::make('pembayaran'),
                 Tables\Columns\TextColumn::make('waktu.durasi')
                     ->suffix(" Jam"),
-                Tables\Columns\IconColumn::make('lunas')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('denda')
+                    ->prefix('Rp. ')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('total')
+                    ->prefix('Rp. ')
+                    ->numeric(),
+                Tables\Columns\ToggleColumn::make('lunas'),
                 Tables\Columns\ToggleColumn::make('selesai')
                     ->disabled(fn ($record) => !$record->lunas)
                     ->beforeStateUpdated(function ($record, $state) {
-                        if ($state)
-                            return $record->cekout = now();
+                        if ($state) {
+                            $record->total = $record->denda + $record->waktu->biaya;
+                            $record->cekout = now();
+                            return $record;
+                        }
 
                         return null;
                     }),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('lunas')->toggle(),
+                Tables\Filters\Filter::make('selesai')->toggle(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

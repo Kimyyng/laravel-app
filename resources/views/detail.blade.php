@@ -2,19 +2,25 @@
 
 @section("content")
 
-<img src="data:image/png;base64,{{ base64_encode($result->qr) }}" alt="kode QR Tiket">
+<img src="http://api.qrserver.com/v1/create-qr-code/?data={{$result->id}}&size=120x120" class="my-3" alt="kode QR Tiket">
 
 @if ($result->lunas)
     @if ($result->selesai)
         <h1 class="text-danger">Expired</h1>
-        <p>Masa berlaku sudah habis</p>
+        <p>Masa berlaku sudxeah habis</p>
     @else
         <h1 class="text-success">Lunas</h1>
         <p>Unduh bukti pembayaran <a href="{{route('pdf',[$result->id])}}" class="text-success">disini</a></p>
     @endif    
 @else
     <h1 class="text-warning">Pending</h1>
-    <p>Harap segera melakukan pembayaran <a href="{{$result->payment_link}}" class="text-warning">disini</a></p>
+    <p>Harap segera melakukan pembayaran 
+        @if ($result->payment_link)
+            <a href="{{$result->payment_link}}" class="text-warning">disini</a>
+        @else
+            ditempat 
+        @endif
+    </p>
 @endif
 
 <table class="text-start table table-dark">
@@ -68,5 +74,10 @@
     </tr>
     @endif
 </table>
+
+<p>
+    👈 Go back 
+    <a href="{{url('/')}}" class="text-decoration-none fw-bold text-white">Home</a>
+</p>
 
 @endsection

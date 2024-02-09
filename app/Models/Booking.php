@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Ramsey\Uuid\Uuid;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Booking extends Model
 {
@@ -47,21 +46,13 @@ class Booking extends Model
         return $this->created_at->addHours($this->waktu->durasi);
     }
 
-    public function getSelesaiAttribute()
-    {
-        if (is_null($this->cekout))
-            return false;
-
-        return true;
-    }
-
     public function getWaktuTambahanAttribute()
     {
         $timeSpend =  $this->created_at->diffInHours(now());
 
         if ($this->selesai) {
-            if ($this->created_at->diffInHours($this->selesai_at) > $this->waktu->durasi)
-                return $this->batasWaktu->diffInHours($this->selesai_at);
+            if ($this->created_at->diffInHours($this->cekout) > $this->waktu->durasi)
+                return $this->batasWaktu->diffInHours($this->cekout);
         } else {
             if ($timeSpend > $this->waktu->durasi)
                 return  $timeSpend;
@@ -73,11 +64,6 @@ class Booking extends Model
     public function getDendaAttribute()
     {
         return $this->waktu_tambahan * 2000;
-    }
-
-    public function getQrAttribute()
-    {
-        return QrCode::size(110)->format('png')->generate($this->id);
     }
 
     public function slot(): BelongsTo
