@@ -7,7 +7,7 @@
 @if ($result->lunas)
     @if ($result->selesai)
         <h1 class="text-danger">Expired</h1>
-        <p>Masa berlaku sudah habis</p>
+        <p>Masa berlaku sudxeah habis</p>
     @else
         <h1 class="text-success">Lunas</h1>
         <p>Unduh bukti pembayaran <a href="{{route('pdf',[$result->id])}}" class="text-success">disini</a></p>

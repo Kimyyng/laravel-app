@@ -70,7 +70,7 @@ class PembayaranController extends Controller
         if ($data['status'] == 'SUCCEEDED') {
             $booking = Booking::find($id);
 
-            if ($booking->isEmpty()) {
+            if (is_null($booking)) {
                 return response('Data tidak ditemukan')->json();
             }
 
