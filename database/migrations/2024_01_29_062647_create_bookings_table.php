@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean("lunas")->default(false);
             $table->timestamp("cekin")->nullable();
             $table->timestamp("cekout")->nullable();
+            $table->boolean("selesai")->default(false);
             $table->integer("total")->nullable();
             $table->timestamps();
         });

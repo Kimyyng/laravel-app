@@ -48,6 +48,7 @@ class BookingFactory extends Factory
             'lunas' => true,
             'cekin' => $cekin,
             'cekout' => $cekout,
+            'selesai' => true,
             'total' => $waktu->biaya + $denda,
             'created_at' => $cekin,
             'updated_at' => $cekout,
