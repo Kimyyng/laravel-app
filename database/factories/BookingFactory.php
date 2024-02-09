@@ -28,7 +28,7 @@ class BookingFactory extends Factory
         $slot = \App\Models\Slot::all()->random();
         $waktu = \App\Models\Waktu::all()->random();
 
-        $date = Carbon::parse(fake()->dateTimeThisYear());
+        $date = Carbon::parse(fake()->dateTimeThisYear(now()->subDay()));
 
         $cekin = $date;
         $batasWaktu = $date->addHours($waktu->durasi);
