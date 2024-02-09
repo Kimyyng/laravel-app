@@ -62,8 +62,11 @@ class BookingResource extends Resource
                 Tables\Columns\ToggleColumn::make('selesai')
                     ->disabled(fn ($record) => !$record->lunas)
                     ->beforeStateUpdated(function ($record, $state) {
-                        if ($state)
-                            return $record->cekout = now();
+                        if ($state) {
+                            $record->total = $record->denda + $record->waktu->biaya;
+                            $record->cekout = now();
+                            return $record;
+                        }
 
                         return null;
                     }),
