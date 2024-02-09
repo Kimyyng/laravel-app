@@ -42,9 +42,13 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->copyable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('slot.kode_slot')
-                    ->numeric(),
+                    ->numeric()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('ds')
                     ->label("DS")
                     ->searchable(),
@@ -63,17 +67,10 @@ class BookingResource extends Resource
 
                         return null;
                     }),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('lunas')->toggle(),
+                Tables\Filters\Filter::make('selesai')->toggle(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
