@@ -28,11 +28,13 @@ class BookingFactory extends Factory
         $slot = \App\Models\Slot::all()->random();
         $waktu = \App\Models\Waktu::all()->random();
 
-        $cekin = Carbon::parse(fake()->dateTimeThisYear());
-        $batasWaktu = $cekin->addHours($waktu->durasi);
-        $cekout = $cekin->addHours(rand(2, 4));
+        $date = Carbon::parse(fake()->dateTimeThisYear());
 
-        if ($cekin->diffInHours($cekout) > $waktu->durasi)
+        $cekin = $date;
+        $batasWaktu = $date->addHours($waktu->durasi);
+        $cekout = $date->addHours(rand(2, 4));
+
+        if ($date->diffInHours($cekout) > $waktu->durasi)
             $denda = $batasWaktu->diffInHours($cekout) * 2000;
         else
             $denda = 0;
